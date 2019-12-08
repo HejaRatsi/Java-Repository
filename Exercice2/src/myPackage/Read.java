@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -58,12 +60,19 @@ public class Read {
     }
 
 
+    public static int getPoint(HashMap<String, Integer> map, String mail){
+        return map.get(mail);
+    }
+
+
 
 
 
 
 
     public static void main(String[] args) throws IOException {
+
+        Instant start = Instant.now();
 
         String path = "src\\myPackage\\truc.xtx";
 
@@ -77,6 +86,14 @@ public class Read {
 
         int a = avarage(list);
         System.out.println(a);
+
+
+        System.out.println(getPoint(map,"toto@gmail.com"));
+
+        Duration duration = Duration.between(start, Instant.now()) ;
+
+        //in milliseconds
+        System.out.println(duration.getNano()/1000000);
 
 
         /* T  E  S  T
