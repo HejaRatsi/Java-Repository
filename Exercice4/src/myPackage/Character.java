@@ -11,7 +11,85 @@ Les alphabets considére :
     ADN
  */
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Character {
+
+
+
+    public static String leftRotate(int number, String chaine){
+        //chercher l'opération qui lie l'orginal à la transfo
+        String newString = chaine;
+        StringBuffer buffer =  new StringBuffer(newString);
+        for(int i = 0; i<chaine.length();i++){
+            buffer.setCharAt(Math.floorMod(i-number,chaine.length()),chaine.charAt(i));
+        }
+
+        return buffer.toString();
+    }
+
+
+
+
+
+
+    public static String rightRotate(int number, String chaine){
+        //chercher l'opération qui lie l'orginal à la transfo
+        String newString = chaine;
+        StringBuffer buffer =  new StringBuffer(newString);
+        for(int i = 0; i<chaine.length();i++){
+            buffer.setCharAt(Math.floorMod(i+number,chaine.length()),chaine.charAt(i));
+        }
+
+        return buffer.toString();
+    }
+
+
+
+
+
+
+
+    public static Boolean isAnagramme(String chaine1, String chaine2){
+        int count = 0;
+        if(chaine1.length() == chaine2.length()){
+
+            for(int i = 0; i<chaine1.length();i++){
+                if(chaine1.charAt(i) == chaine2.charAt(chaine2.length()-(i+1))){
+                    count++;
+                }
+            }
+            if(count == chaine1.length()){
+                return true;
+            }else{
+                return false;
+            }
+
+        }else{
+            return false;
+        }
+    }
+
+
+
+
+
+
+    //----------------N  E  E  D   C  O  R  R  E  C  T  I  O  N---------------------//
+    public static String removeDoubleChar(String chaine){
+        for(int i = 0;i<chaine.length()-1;i++){
+            while(chaine.charAt(i) == chaine.charAt(i+1)){
+                i++;
+            }
+            return chaine.substring(i++);
+        }
+    return chaine;
+    }
+
+
+
+
 
     public static void check (String alphabet, String symbol) {
         String firstAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -101,8 +179,30 @@ public class Character {
 
                 break;
 
+
+            case "leftRotation":
+                System.out.println("How many case for rotation ?");
+                Scanner scanner1 = new Scanner(System.in);
+                int number1 = scanner1.nextInt();
+                System.out.println(leftRotate(number1,symbol));
+
+                break;
+
+            case "rightRotation":
+                System.out.println("How many case for rotation ?");
+                Scanner scanner2 = new Scanner(System.in);
+                int number2 = scanner2.nextInt();
+
+                System.out.println(rightRotate(number2,symbol));
+
+                break;
+
+            case "/o":
+                System.out.println(removeDoubleChar(symbol));
+                break;
+
             default:
-                System.out.println("Alphabet inexistant");
+                System.out.println("Alphabet inexistant ou commande inxeistant");
                 break;
 
 
@@ -111,41 +211,50 @@ public class Character {
 
 
 
-public static String leftRotate(int number, String chaine){
-    //chercher l'opération qui lie l'orginal à la transfo
-    String newString = chaine;
-    StringBuffer buffer =  new StringBuffer(newString);
-    for(int i = 0; i<chaine.length();i++){
-        buffer.setCharAt(Math.floorMod(i-number,chaine.length()),chaine.charAt(i));
-    }
 
-    return buffer.toString();
-}
+    public static void checkManyPAram(String[] tab){
+        switch (tab[0]) {
+            case "/a":
+                    //tab[1] est le mot a comparer avec les autres
+                    ArrayList<String> list = new ArrayList<>();
+                    for (int i = 2; i < tab.length; i++) {
+                        if (isAnagramme(tab[1], tab[i])) {
+                            list.add(tab[i]);
+                        }
+                    }
+
+                    System.out.println("Les anagrammes du mot sont : ");
+                    for (String value : list) {
+                        System.out.println(value);
+                    }
+             break;
 
 
 
 
-    public static String rightRotate(int number, String chaine){
-        //chercher l'opération qui lie l'orginal à la transfo
-        String newString = chaine;
-        StringBuffer buffer =  new StringBuffer(newString);
-        for(int i = 0; i<chaine.length();i++){
-            buffer.setCharAt(Math.floorMod(i+number,chaine.length()),chaine.charAt(i));
+
+            default:
+                System.out.println("Commande inxeistant");
+             break;
+
+
         }
-
-        return buffer.toString();
     }
 
 
+
+    
 
     public static void main(String[] args){
-        System.out.println(args[0]);
-        System.out.println(args[1]);
-        check(args[0],args[1]);
 
+        if(args.length <= 2) {
+            check(args[0], args[1]);
+        }else{
+            checkManyPAram(args);//just for anagramme
+        }
 
-        System.out.println(leftRotate(3,"abcdef"));
-        System.out.println(rightRotate(2,"abcdef"));
+        //System.out.println(removeDoubleChar("dlkkjppppppzer"));
+
 
     }
 
