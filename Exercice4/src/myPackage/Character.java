@@ -89,7 +89,7 @@ public class Character {
 
 
 
-
+/*
 
     public static void check (String alphabet, String symbol) {
         String firstAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -209,12 +209,34 @@ public class Character {
         }
     }
 
-
+*/
 
 
     public static void checkManyPAram(String[] tab){
-        switch (tab[0]) {
-            case "/a":
+        if(dealWithAlphabet(tab[0],tab[1])) {
+            System.out.println("Le mot appartient à l'alphabet :)");
+            switch (tab[2]) {
+
+                case "leftRotation":
+                    System.out.println("How many case for rotation ?");
+                    Scanner scanner1 = new Scanner(System.in);
+                    int number1 = scanner1.nextInt();
+                    System.out.println(leftRotate(number1,tab[1]));
+
+                    break;
+
+                case "rightRotation":
+                    System.out.println("How many case for rotation ?");
+                    Scanner scanner2 = new Scanner(System.in);
+                    int number2 = scanner2.nextInt();
+
+                    System.out.println(rightRotate(number2,tab[1]));
+
+                    break;
+
+
+
+                case "/a":
                     //tab[1] est le mot a comparer avec les autres
                     ArrayList<String> list = new ArrayList<>();
                     for (int i = 2; i < tab.length; i++) {
@@ -227,34 +249,66 @@ public class Character {
                     for (String value : list) {
                         System.out.println(value);
                     }
-             break;
+                    break;
 
 
+                default:
+                    System.out.println("Commande inxeistant");
+                    break;
 
 
+            }
 
-            default:
-                System.out.println("Commande inxeistant");
-             break;
-
-
+        }else{
+            System.out.println("La chaine n'est pas dans l'alphabet :(");
+            return;
         }
     }
 
 
 
-    
+
+
+    public static boolean dealWithAlphabet(String alphabet, String chaine){
+        //ajout majusucle ou minuscule
+        StringBuffer sb = new StringBuffer("");//sb.append()
+        for(int i = 0;i <alphabet.length();i++){
+            if('a' <= alphabet.charAt(i) && alphabet.charAt(i) <= 'z'){
+                sb.append(alphabet.charAt(i));
+                sb.append(java.lang.Character.toUpperCase(alphabet.charAt(i)));
+
+            } else if ('A' <= alphabet.charAt(i) && alphabet.charAt(i) <= 'Z'){
+                sb.append(alphabet.charAt(i));
+                sb.append(java.lang.Character.toLowerCase(alphabet.charAt(i)));
+
+            }else{
+                sb.append(alphabet.charAt(i));
+
+            }
+
+        }
+        String newAlphabet = sb.toString();
+
+
+        //comparaison
+        for(int i = 0;i<chaine.length();i++){
+            String s = String.valueOf(chaine.charAt(i));
+            if(!newAlphabet.contains(s)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
 
     public static void main(String[] args){
-
-        if(args.length <= 2) {
-            check(args[0], args[1]);
+        if(args.length > 0) {
+            checkManyPAram(args);
         }else{
-            checkManyPAram(args);//just for anagramme
+            System.out.println("No argument");
         }
-
-        //System.out.println(removeDoubleChar("dlkkjppppppzer"));
-
 
     }
 
