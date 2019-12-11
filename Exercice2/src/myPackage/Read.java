@@ -15,7 +15,7 @@ public class Read {
 
         BufferedReader reader = null;
 
-        // OUVERTURE DU FICHIER
+        // OPEN FILE
         try{
             reader = new BufferedReader(new FileReader(path));
         }catch (FileNotFoundException f){
@@ -43,7 +43,6 @@ public class Read {
 
     public static void mapToList(HashMap<String, Integer> map, ArrayList<Integer> list){
         for (String i : map.keySet()) {
-            //System.out.println(map.get(i));
             list.add(map.get(i));
         }
 
@@ -56,6 +55,8 @@ public class Read {
             avarage += value;
         }
         avarage = avarage / list.size();
+        //list.
+
         return avarage;
     }
 
@@ -94,15 +95,6 @@ public class Read {
 
         //in milliseconds
         System.out.println(duration.getNano()/1000000);
-
-
-        /* T  E  S  T
-        System.out.println(map.size());
-        System.out.println(map.get("toto@gmail.com"));
-        System.out.println(list.size());
-        */
-
-
 
     }
 

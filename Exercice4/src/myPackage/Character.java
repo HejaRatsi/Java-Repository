@@ -3,27 +3,20 @@ package myPackage;
 //C:\Users\hejar\Desktop\3emeIABD\Java\Exercice Java Introduction\Exercice4\src\myPackage>javac Character.java
 //C:\Users\hejar\Desktop\3emeIABD\Java\Exercice Java Introduction\Exercice4\src>java myPackage.Character
 
-/*
-Les alphabets considére :
-    français
-    morse
-    couleurs
-    ADN
- */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Character {
 
 
 
-    public static String leftRotate(int number, String chaine){
-        //chercher l'opération qui lie l'orginal à la transfo
-        String newString = chaine;
+    public static String leftRotate(int number, String chain){
+        String newString = chain;
         StringBuffer buffer =  new StringBuffer(newString);
-        for(int i = 0; i<chaine.length();i++){
-            buffer.setCharAt(Math.floorMod(i-number,chaine.length()),chaine.charAt(i));
+        for(int i = 0; i<chain.length();i++){
+            buffer.setCharAt(Math.floorMod(i-number,chain.length()),chain.charAt(i));
         }
 
         return buffer.toString();
@@ -34,12 +27,11 @@ public class Character {
 
 
 
-    public static String rightRotate(int number, String chaine){
-        //chercher l'opération qui lie l'orginal à la transfo
-        String newString = chaine;
+    public static String rightRotate(int number, String chain){
+        String newString = chain;
         StringBuffer buffer =  new StringBuffer(newString);
-        for(int i = 0; i<chaine.length();i++){
-            buffer.setCharAt(Math.floorMod(i+number,chaine.length()),chaine.charAt(i));
+        for(int i = 0; i<chain.length();i++){
+            buffer.setCharAt(Math.floorMod(i+number,chain.length()),chain.charAt(i));
         }
 
         return buffer.toString();
@@ -51,24 +43,13 @@ public class Character {
 
 
 
-    public static Boolean isAnagramme(String chaine1, String chaine2){
-        int count = 0;
-        if(chaine1.length() == chaine2.length()){
+    public static Boolean isAnagramme(String chain1, String chain2){
+        char[] tab1 = chain1.toCharArray();
+        char[] tab2 = chain2.toCharArray();
+        Arrays.sort(tab1);
+        Arrays.sort(tab2);
+        return Arrays.equals(tab1,tab2);
 
-            for(int i = 0; i<chaine1.length();i++){
-                if(chaine1.charAt(i) == chaine2.charAt(chaine2.length()-(i+1))){
-                    count++;
-                }
-            }
-            if(count == chaine1.length()){
-                return true;
-            }else{
-                return false;
-            }
-
-        }else{
-            return false;
-        }
     }
 
 
@@ -76,140 +57,16 @@ public class Character {
 
 
 
-    //----------------N  E  E  D   C  O  R  R  E  C  T  I  O  N---------------------//
-    public static String removeDoubleChar(String chaine){
-        for(int i = 0;i<chaine.length()-1;i++){
-            while(chaine.charAt(i) == chaine.charAt(i+1)){
-                i++;
-            }
-            return chaine.substring(i++);
+    public static String removeChar(String chain,String chaineToremove) {
+        String ret = chain;
+        for (int i = 0; i < chaineToremove.length(); i++) {
+            ret = ret.replace(String.valueOf(chaineToremove.charAt(i)),"");
+
         }
-    return chaine;
+        return ret;
     }
 
 
-
-/*
-
-    public static void check (String alphabet, String symbol) {
-        String firstAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        String secondAlphabet = ".-";
-        String thirdAlphabet = "0123456789ABCDEF";
-        String fourthAlphabet = "ACGT";
-
-        switch (alphabet) {
-
-            case "francais":
-                int flenght = 0;
-                for (int i = 0; i < symbol.length(); i++) {
-                    for (int j = 0; j < firstAlphabet.length(); j++) {
-                        if (symbol.charAt(i) == firstAlphabet.charAt(j)) {
-                            flenght++;
-                            //break;
-                        }
-                    }
-                }
-
-                if (flenght == symbol.length()) {
-                    System.out.println("La chaîne du français est bien formée");
-                } else {
-                    System.out.println("La chaîne du français  est mal formée");
-                }
-                break;
-
-
-            case "morse":
-                int slenght = 0;
-                for (int i = 0; i < symbol.length(); i++) {
-                    for (int j = 0; j < secondAlphabet.length(); j++) {
-                        if (symbol.charAt(i) == secondAlphabet.charAt(j)) {
-                            slenght++;
-                            //break;
-                        }
-                    }
-                }
-
-                if (slenght == symbol.length()) {
-                    System.out.println("La chaîne des morses est bien formée");
-                } else {
-                    System.out.println("La chaîne des morses est mal formée");
-
-                }
-                break;
-
-
-            case "couleurs":
-
-                int tlenght = 0;
-                for (int i = 0; i < symbol.length(); i++) {
-                    for (int j = 0; j < secondAlphabet.length(); j++) {
-                        if (symbol.charAt(i) == secondAlphabet.charAt(j)) {
-                            tlenght++;
-                            //break;
-                        }
-                    }
-                }
-
-                if (tlenght == symbol.length()) {
-                    System.out.println("La chaîne des couleurs est bien formée");
-                } else {
-                    System.out.println("La chaîne des couleurs est mal formée");
-
-                }
-                break;
-
-
-            case "ADN":
-                int folenght = 0;
-                for (int i = 0; i < symbol.length(); i++) {
-                    for (int j = 0; j < secondAlphabet.length(); j++) {
-                        if (symbol.charAt(i) == secondAlphabet.charAt(j)) {
-                            folenght++;
-                            //break;
-                        }
-                    }
-                }
-
-                if (folenght == symbol.length()) {
-                    System.out.println("La chaîne des ADNs est bien formée");
-                } else {
-                    System.out.println("La chaîne des ADNs est mal formée");
-
-                }
-
-                break;
-
-
-            case "leftRotation":
-                System.out.println("How many case for rotation ?");
-                Scanner scanner1 = new Scanner(System.in);
-                int number1 = scanner1.nextInt();
-                System.out.println(leftRotate(number1,symbol));
-
-                break;
-
-            case "rightRotation":
-                System.out.println("How many case for rotation ?");
-                Scanner scanner2 = new Scanner(System.in);
-                int number2 = scanner2.nextInt();
-
-                System.out.println(rightRotate(number2,symbol));
-
-                break;
-
-            case "/o":
-                System.out.println(removeDoubleChar(symbol));
-                break;
-
-            default:
-                System.out.println("Alphabet inexistant ou commande inxeistant");
-                break;
-
-
-        }
-    }
-
-*/
 
 
     public static void checkManyPAram(String[] tab){
@@ -251,6 +108,10 @@ public class Character {
                     }
                     break;
 
+                case "/o":
+
+                    System.out.println(removeChar(tab[1],tab[3]));
+                  break;
 
                 default:
                     System.out.println("Commande inxeistant");
@@ -270,7 +131,6 @@ public class Character {
 
 
     public static boolean dealWithAlphabet(String alphabet, String chaine){
-        //ajout majusucle ou minuscule
         StringBuffer sb = new StringBuffer("");//sb.append()
         for(int i = 0;i <alphabet.length();i++){
             if('a' <= alphabet.charAt(i) && alphabet.charAt(i) <= 'z'){
@@ -290,7 +150,7 @@ public class Character {
         String newAlphabet = sb.toString();
 
 
-        //comparaison
+        //compare
         for(int i = 0;i<chaine.length();i++){
             String s = String.valueOf(chaine.charAt(i));
             if(!newAlphabet.contains(s)){
@@ -304,7 +164,7 @@ public class Character {
 
 
     public static void main(String[] args){
-        if(args.length > 0) {
+        if(args.length > 1) {
             checkManyPAram(args);
         }else{
             System.out.println("No argument");
